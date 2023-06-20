@@ -1,0 +1,42 @@
+{
+  "name": "kriskoribsky/webservices",
+  "description": "Services for the custom personal framework designed for exposing various APIs to the framework core.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kristian Koribsky",
+      "email": "kiko.koribsky@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "config": {
+    "lock": false,
+    "sort-packages": true,
+    "platform-check": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "WebServices\\": "src/WebServices/"
+    }
+  },
+  "autoload-dev": {
+    "files": [],
+    "psr-4": {}
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10",
+    "phpstan/phpstan": "^1.10",
+    "phpstan/extension-installer": "^1.3",
+    "phpstan/phpstan-deprecation-rules": "^1.1",
+    "phpstan/phpstan-strict-rules": "^1.5"
+  },
+  "require": {
+    "php": "^8.2"
+  }
+}

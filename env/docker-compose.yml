@@ -1,0 +1,11 @@
+version: '3'
+services:
+  phpcli:
+    container_name: webservices-phpcli
+    build:
+      context: .
+      dockerfile: phpcli-composer.Dockerfile
+    volumes:
+      - ../:/webservices-php/
+    stdin_open: true
+    tty: true

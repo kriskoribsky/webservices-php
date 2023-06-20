@@ -1,0 +1,16 @@
+/doc export-ignore
+/env export-ignore
+
+/.gitignore export-ignore
+/.gitattributes export-ignore
+
+/.npmrc export-ignore
+/package.json export-ignore
+
+/.prettierrc export-ignore
+/.prettierignore export-ignore
+
+/Makefile export-ignore
+
+/phpunit.xml.dist export-ignore
+/phpstan.neon.dist export-ignore

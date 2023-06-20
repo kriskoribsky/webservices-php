@@ -1,0 +1,17 @@
+parameters:
+    level: max
+
+    reportUnmatchedIgnoredErrors: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkUninitializedProperties: true
+    checkImplicitMixed: true
+    checkBenevolentUnionTypes: true
+    reportAlwaysTrueInLastCondition: true
+    treatPhpDocTypesAsCertain: true
+    tipsOfTheDay: true
+
+    paths:
+        - src/WebServices
+
+includes: 
+    - phar://phpstan.phar/conf/bleedingEdge.neon
