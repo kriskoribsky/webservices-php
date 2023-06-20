@@ -1,5 +1,5 @@
 # Directories
-DIR_SRC					:= src/
+DIR_SRC					:= src/WebServices/
 
 # Files
 DOCKER_FILES 			:= env/docker-compose.yml env/phpcli-composer.Dockerfile
@@ -20,15 +20,13 @@ static: $(CONFIG_STATIC)
 test: $(CONFIG_TEST)
 	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text
 
-docker-up: $(DOCKER_FILES)
-	docker compose --file $(DOCKER_COMPOSE) up --build --detach
-	docker exec -it $(DOCKER_CONTAINER) sh
-
-docker-down: $(DOCKER_FILES)
-	docker compose --file $(DOCKER_COMPOSE) down
-
 format: $(PRETTIER_FILES)
 	npx prettier --write $(DIR_SRC)
+
+docker: $(DOCKER_FILES)
+	docker compose --file $(DOCKER_COMPOSE) up --build --detach
+	docker exec -it $(DOCKER_CONTAINER) sh
+	docker compose --file $(DOCKER_COMPOSE) down
 
 # Metadata
 .PHONY: full test static docker-up docker-down format
