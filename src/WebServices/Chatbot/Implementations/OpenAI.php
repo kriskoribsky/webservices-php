@@ -10,7 +10,7 @@ class OpenAI
 
     private \CurlHandle $handle;
 
-    public function __construct(string $apiEndpoint, string $apiKey)
+    public function __construct(string $apiUrl, string $apiKey)
     {
         if (($this->handle = \curl_init()) === false) {
             throw new \Exception('Connecting to the endpoint failed.');
@@ -22,7 +22,7 @@ class OpenAI
             \CURLOPT_RETURNTRANSFER => true,
             \CURLOPT_HEADEROPT => \CURLHEADER_UNIFIED,
 
-            \CURLOPT_URL => $apiEndpoint,
+            \CURLOPT_URL => $apiUrl,
             \CURLOPT_HTTPHEADER => ['Content-Type: application/json', "Authorization: Bearer $apiKey"],
         ];
 
@@ -44,6 +44,6 @@ class OpenAI
         if (($response = \curl_exec($this->handle)) === false) {
             throw new \Exception('Executing curl failed.');
         }
-        return $response;
+        return \json_decode($response);
     }
 }
