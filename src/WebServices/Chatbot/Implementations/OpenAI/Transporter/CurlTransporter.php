@@ -14,8 +14,8 @@ class CurlTransporter implements TransporterInterface
 {
     private const DEFAULT_CURLOPTS = [
         \CURLOPT_PROTOCOLS => \CURLPROTO_HTTPS,
+        \CURLOPT_FAILONERROR => true,
         \CURLOPT_RETURNTRANSFER => true,
-        \CURLOPT_HEADEROPT => \CURLHEADER_UNIFIED,
     ];
 
     private \CurlHandle $connection;
@@ -66,10 +66,13 @@ class CurlTransporter implements TransporterInterface
     public function serverRequest(array $payload): array
     {
         $options = [
+            \CURLOPT_URL => $this->uri,
             \CURLOPT_CUSTOMREQUEST => $this->method->value,
             \CURLOPT_HTTPHEADER => $this->headers,
             \CURLOPT_POSTFIELDS => $this->toJson($payload),
         ];
+
+        \var_dump($options);
 
         if (\curl_setopt_array($this->connection, $options) === false) {
             throw new TransporterException('Failed to set request options.');
@@ -77,7 +80,9 @@ class CurlTransporter implements TransporterInterface
 
         $result = \curl_exec($this->connection);
         if ($result === false) {
-            throw new TransporterConnectionException('Sending request to the server failed.');
+            throw new TransporterConnectionException(
+                'Sending request to the server failed: ' . \curl_error($this->connection),
+            );
         }
 
         return $this->fromJson($result);

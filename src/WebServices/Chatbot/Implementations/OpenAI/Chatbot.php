@@ -14,25 +14,25 @@ use WebServices\Chatbot\Implementations\OpenAI\Transporter\CurlTransporter;
 final class Chatbot implements ChatbotInterface
 {
     private CurlTransporter $session;
-    private Request $defaultRequest;
     private array $history = [];
 
     public function __construct(string $apiKey)
     {
         $this->session = new CurlTransporter();
-        $this->session->setHeaders([ContentType::JSON, "Authorization: Bearer $apiKey"]);
-
-        $this->defaultRequest = (new Request())
-            ->setPrompts([])
-            ->setOption('model', 'gpt-3.5-turbo')
-            ->setOption('max_tokens', 100)
-            ->setOption('temperature', 0.6);
+        $this->session->setHeaders(['Content-Type: ' . ContentType::JSON->value, "Authorization: Bearer $apiKey"]);
     }
 
     public function chat(RequestInterface|string $request): ResponseInterface
     {
         if (\is_string($request)) {
-            $request = $this->defaultRequest->addPrompt(['role' => 'user', 'content' => $request]);
+            $tmp = $request;
+            $request = new Request();
+            $request
+                ->setPrompts([])
+                ->setOption('model', 'gpt-3.5-turbo')
+                ->setOption('max_tokens', 100)
+                ->setOption('temperature', 0.6)
+                ->addPrompt(['role' => 'user', 'content' => $tmp]);
         }
 
         $this->session->setUri('https://api.openai.com/v1/chat/completions');
