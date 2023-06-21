@@ -72,8 +72,6 @@ class CurlTransporter implements TransporterInterface
             \CURLOPT_POSTFIELDS => $this->toJson($payload),
         ];
 
-        \var_dump($options);
-
         if (\curl_setopt_array($this->connection, $options) === false) {
             throw new TransporterException('Failed to set request options.');
         }
