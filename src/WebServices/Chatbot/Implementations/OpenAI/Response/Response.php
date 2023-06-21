@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\Response;
+namespace WebServices\Chatbot\Implementations\OpenAI\Response;
 
 use DateTimeImmutable;
 use WebServices\Chatbot\Contracts\Response\AbstractResponse;

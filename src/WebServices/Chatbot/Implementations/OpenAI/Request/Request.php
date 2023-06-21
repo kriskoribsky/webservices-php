@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\Request;
+namespace WebServices\Chatbot\Implementations\OpenAI\Request;
 
 use WebServices\Chatbot\Contracts\Request\RequestInterface;
 

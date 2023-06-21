@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\Transporter;
+namespace WebServices\Chatbot\Implementations\OpenAI\Transporter;
 
 use JsonException;
 use WebServices\Chatbot\Contracts\Transporter\Method;

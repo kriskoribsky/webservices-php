@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations;
+namespace WebServices\Chatbot\OpenAI\Implementations;
 
 use WebServices\Chatbot\Contracts\ChatbotInterface;
 use WebServices\Chatbot\Contracts\Request\RequestInterface;
 use WebServices\Chatbot\Contracts\Response\ResponseInterface;
 use WebServices\Chatbot\Contracts\Transporter\ContentType;
 use WebServices\Chatbot\Contracts\Transporter\Method;
-use WebServices\Chatbot\Implementations\Request\Request;
-use WebServices\Chatbot\Implementations\Response\Response;
-use WebServices\Chatbot\Implementations\Transporter\CurlTransporter;
+use WebServices\Chatbot\Implementations\OpenAI\Request\Request;
+use WebServices\Chatbot\Implementations\OpenAI\Response\Response;
+use WebServices\Chatbot\Implementations\OpenAI\Transporter\CurlTransporter;
 
 final class Chatbot implements ChatbotInterface
 {
