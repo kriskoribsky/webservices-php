@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\OpenAI\Request;
+namespace WebServices\AIClient\Implementations\OpenAI\Request;
 
-use WebServices\Chatbot\Contracts\Request\RequestInterface;
+use WebServices\AIClient\Contracts\Request\RequestInterface;
 
 // FEAT implement option/prompt key validation
 class Request implements RequestInterface

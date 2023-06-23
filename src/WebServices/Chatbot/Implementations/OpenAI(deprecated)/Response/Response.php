@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\OpenAI\Response;
+namespace WebServices\AIClient\Implementations\OpenAI\Response;
 
 use DateTimeImmutable;
-use WebServices\Chatbot\Contracts\Response\AbstractResponse;
-use WebServices\Chatbot\Contracts\Response\ResponseInterface;
+use WebServices\AIClient\Contracts\Response\AbstractResponse;
+use WebServices\AIClient\Contracts\Response\ResponseInterface;
 
 class Response extends AbstractResponse implements ResponseInterface
 {

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\OpenAI\Transporter;
+namespace WebServices\AIClient\Implementations\OpenAI\Transporter;
 
 use JsonException;
-use WebServices\Chatbot\Contracts\Transporter\Method;
-use WebServices\Chatbot\Contracts\Transporter\ContentType;
-use WebServices\Chatbot\Exceptions\TransporterException;
-use WebServices\Chatbot\Exceptions\TransporterConnectionException;
-use WebServices\Chatbot\Contracts\Transporter\TransporterInterface;
+use WebServices\AIClient\Contracts\Transporter\Method;
+use WebServices\AIClient\Contracts\Transporter\ContentType;
+use WebServices\AIClient\Exceptions\TransporterException;
+use WebServices\AIClient\Exceptions\TransporterConnectionException;
+use WebServices\AIClient\Contracts\Transporter\TransporterInterface;
 
 // FEAT add validation to the methods
 class CurlTransporter implements TransporterInterface

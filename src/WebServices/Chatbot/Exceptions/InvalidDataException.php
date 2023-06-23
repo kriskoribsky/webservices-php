@@ -2,6 +2,6 @@
 
 namespace WebServices\AIClient\Exceptions;
 
-class TransporterConnectionException extends \RuntimeException
+final class InvalidDataException extends \InvalidArgumentException
 {
 }

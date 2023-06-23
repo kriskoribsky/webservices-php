@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace WebServices\Chatbot\Implementations\OpenAI;
+namespace WebServices\AIClient\Implementations\OpenAI;
 
-use WebServices\Chatbot\Contracts\ChatbotInterface;
-use WebServices\Chatbot\Contracts\Request\RequestInterface;
-use WebServices\Chatbot\Contracts\Response\ResponseInterface;
-use WebServices\Chatbot\Contracts\Transporter\ContentType;
-use WebServices\Chatbot\Contracts\Transporter\Method;
-use WebServices\Chatbot\Implementations\OpenAI\Request\Request;
-use WebServices\Chatbot\Implementations\OpenAI\Response\Response;
-use WebServices\Chatbot\Implementations\OpenAI\Transporter\CurlTransporter;
+use WebServices\AIClient\Contracts\AIClientInterface;
+use WebServices\AIClient\Contracts\Request\RequestInterface;
+use WebServices\AIClient\Contracts\Response\ResponseInterface;
+use WebServices\AIClient\Contracts\Transporter\ContentType;
+use WebServices\AIClient\Contracts\Transporter\Method;
+use WebServices\AIClient\Implementations\OpenAI\Request\Request;
+use WebServices\AIClient\Implementations\OpenAI\Response\Response;
+use WebServices\AIClient\Implementations\OpenAI\Transporter\CurlTransporter;
 
-final class Chatbot implements ChatbotInterface
+final class AIClient implements AIClientInterface
 {
     private CurlTransporter $session;
     private array $history = [];
