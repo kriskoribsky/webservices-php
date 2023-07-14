@@ -1,32 +1,60 @@
+# Makefile modules:
+include mak/flags.mak
+include mak/cmd.mak
+include mak/path.mak
+include mak/message.mak
+include mak/utils.mak
+
+# Project-specific configuration:
 # Directories
-DIR_SRC					:= src/WebServices/
+DIR_BIN				:= $(DIR_ROOT)vendor/bin/
+DIR_SRC				:= $(DIR_ROOT)src/
+DIR_ENV				:= $(DIR_ROOT)env/
+DIR_OUT				:= $(DIR_ROOT)out/
+DIR_TOOL			:= $(DIR_ROOT)tools/
 
-# Files
-DOCKER_FILES 			:= env/docker-compose.yml env/phpcli-composer.Dockerfile
-DOCKER_COMPOSE 			:= env/docker-compose.yml
-DOCKER_CONTAINER		:= webservices-phpcli
+DIR_TEST			:= $(DIR_OUT)testers/
+DIR_FORMAT			:= $(DIR_OUT)formatters/
 
-CONFIG_TEST 			:= phpunit.xml.dist
-CONFIG_STATIC 			:=  phpstan.neon.dist
-
-PRETTIER_FILES			:= package.json node_modules
+# Other
+DOCKER_CONTEXT		:= $(DIR_ENV)
+DOCKER_VOLUME		:= /volume
+DOCKER_IMAGE		:= php-webservices
 
 # Targets
-full: static test
+init:
+	$(info $(MSG_INIT))
+	docker build --tag $(DOCKER_IMAGE) $(DOCKER_CONTEXT)
+	docker run --rm --interactive --tty --volume $(DIR_ROOT):$(DOCKER_VOLUME) $(DOCKER_IMAGE) \
+		sh -c "composer update --prefer-stable --prefer-dist --no-interaction && sh"
 
-static: $(CONFIG_STATIC)
-	vendor/bin/phpstan analyse
+check:
+	$(info $(MSG_CHECK))
+	$(MK) $(DIR_FORMAT)
+	composer normalize --dry-run --diff --ansi
+	$(CD) $(DIR_TOOL) && $(DIR_BIN)php-cs-fixer fix --dry-run --diff --ansi
 
-test: $(CONFIG_TEST)
-	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text
+format:
+	$(info $(MSG_FORMAT))
+	$(MK) $(DIR_FORMAT)
+	composer normalize --ansi
+	$(CD) $(DIR_TOOL) && $(DIR_BIN)php-cs-fixer fix --ansi
 
-format: $(PRETTIER_FILES)
-	npx prettier --write $(DIR_SRC)
+static:
+	$(info $(MSG_STATIC))
+	$(CD) $(DIR_TOOL) && $(DIR_BIN)phpstan analyse --ansi
 
-docker: $(DOCKER_FILES)
-	docker compose --file $(DOCKER_COMPOSE) up --build --detach
-	docker exec -it $(DOCKER_CONTAINER) sh
-	docker compose --file $(DOCKER_COMPOSE) down
+test:
+	$(info $(MSG_TEST))
+	$(MK) $(DIR_TEST)
+	$(CD) $(DIR_TOOL) && XDEBUG_MODE=coverage $(DIR_BIN)phpunit --colors=always
 
-# Metadata
-.PHONY: full test static docker-up docker-down format
+all: format static test
+
+clean:
+	$(info $(MSG_CLEAN))
+	$(ECHO) "$(GREEN)Removing $(DIR_OUT) ...$(RESET)"
+	$(RM) $(DIR_OUT)
+
+# Special
+.PHONY: init check format static test all clean
